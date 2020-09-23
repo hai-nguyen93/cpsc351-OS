@@ -139,14 +139,13 @@ int main(void){
                     fprintf(stderr, "Pipe failed.\n");
                     exit(1);
                 }
-
-                // first program
+             
                 ppid = fork();
-                if (ppid < 0) {
+                if (ppid < 0) {  
                     fprintf(stderr, "Fork failed.\n");
                     exit(1);
                 }
-                if (ppid == 0) {
+                if (ppid == 0) {    // first program
                     close(pfd[READ_END]);
                     dup2(pfd[WRITE_END], STDOUT_FILENO);
                     close(pfd[WRITE_END]);
@@ -156,7 +155,7 @@ int main(void){
                         return 1;
                     }
                 }
-                else if (ppid > 0) {
+                else if (ppid > 0) {  // second program
                     close(pfd[WRITE_END]);
                     dup2(pfd[READ_END], STDIN_FILENO);
                     close(pfd[READ_END]);
